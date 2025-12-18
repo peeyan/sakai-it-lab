@@ -24,7 +24,7 @@ export default async function handler(req, res) {
 
     // ▼ PUT: 更新
     if (req.method === 'PUT') {
-      const { id } = req.body;
+      const { id,title, hours } = req.body;
       if (!id) {
         return res.status(400).json({ error: 'IDが必要です' });
       }
