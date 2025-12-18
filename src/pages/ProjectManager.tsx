@@ -139,13 +139,13 @@ export const ProjectManager: React.FC = () => {
                         {p.deadline ? new Date(p.deadline).toLocaleDateString() : '-'}
                       </td>
                       <td className="p-4 text-right flex justify-end gap-2">
-                        <button 
+                        <button
                           onClick={() => { setEditingProject(p); setShowModal(true); }}
                           className="text-indigo-600 hover:bg-indigo-50 px-3 py-1 rounded text-sm font-bold"
                         >
                           編集
                         </button>
-                        <button 
+                        <button
                           onClick={() => setDeleteId(p.id)}
                           className="text-red-500 hover:bg-red-50 px-3 py-1 rounded text-sm font-bold"
                         >
