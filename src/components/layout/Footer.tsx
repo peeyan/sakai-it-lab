@@ -8,7 +8,7 @@ export const Footer: React.FC = () => {
         <p className="text-gray-400 text-sm">
           © {new Date().getFullYear()} Sakai IT Business Improvement Lab. (Rep: Kohei Miyaoka)
         </p>
-        /* 管理者ページへの入り口 のちに削除する */
+        {/* 管理者ページへの入り口 のちに削除する */}
         <div className="mt-8 pt-4 border-t border-gray-800">
           <a href="/admin" className="text-gray-800 hover:text-gray-600 text-xs transition-colors">
             Admin Login
