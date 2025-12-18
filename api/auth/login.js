@@ -18,7 +18,7 @@ export default async function handler(req, res) {
     );
 
     // ユーザーが見つからない、またはパスワードが違う場合
-    console.log(rows.length);
+    console.log(rows);
     if (rows.length === 0 || rows[0].password !== password) {
       return res.status(401).json({ error: 'IDまたはパスワードが違います' });
     }
