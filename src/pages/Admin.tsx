@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Button } from '../components/ui/Button';
-import { CreateAchievementModal } from '../components/admin/CreateAchievementModal'; // 追加
+import { CreateAchievementModal } from '../components/admin/CreateAchievementModal';
 
 // データ型を定義
 type Achievement = {
