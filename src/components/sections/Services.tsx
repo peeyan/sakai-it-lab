@@ -103,11 +103,11 @@ export const Services: React.FC = () => {
             <div className="w-12 h-12 bg-blue-100 rounded-lg flex items-center justify-center mb-6">
               <Cloud className="w-6 h-6 text-blue-600" />
             </div>
-            <h3 className="text-xl font-bold text-gray-900 mb-2">Kintone導入・開発 または 業務アプリ開発</h3>
+            <h3 className="text-xl font-bold text-gray-900 mb-2">Kintone導入・開発 専用アプリ開発</h3>
             <p className="text-sm text-blue-600 font-semibold mb-4">業務システム構築</p>
             <p className="text-gray-600 mb-6 text-sm">
               CMでおなじみのKintoneを使って、脱Excel！バラバラな情報を一つにまとめます。<br/>
-              または、Googleスプレッドシートやデータベースを使った軽量業務アプリも対応可能です。
+              Googleスプレッドシートやデータベースを使った軽量業務アプリも対応可能です。
             </p>
             <ul className="space-y-3 mb-8">
               <li className="flex items-center text-sm text-gray-700">
