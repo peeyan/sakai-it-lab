@@ -1,18 +1,18 @@
 import React from 'react';
 import { SectionTitle } from '../ui/SectionTitle';
-import { Sheet, Smartphone, Server, Check, Zap, MessageSquare, ArrowRight } from 'lucide-react'; // 新しいアイコン追加
+import { Sheet, Cloud, Server, Check, Zap, MessageSquare, ArrowRight } from 'lucide-react'; // Cloudを追加
 import { Button } from '../ui/Button';
 
 export const Services: React.FC = () => {
   return (
     <section id="services" className="py-20 bg-gray-50">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <SectionTitle
-          title="ご提供できる解決策"
+        <SectionTitle 
+          title="ご提供できる解決策" 
           subtitle="「単発でのご依頼」も「継続的なサポート」も、柔軟に対応します。"
         />
 
-        {/* 月額サブスクリプション（ここを追加・強調！） */}
+        {/* 月額サブスクリプション */}
         <div className="mb-16">
            <div className="bg-white rounded-3xl p-8 md:p-12 shadow-xl border-2 border-indigo-100 relative overflow-hidden">
              {/* 背景装飾 */}
@@ -23,10 +23,11 @@ export const Services: React.FC = () => {
                    <Zap className="w-4 h-4" />
                    人気No.1プラン
                  </div>
+                 {/* スマホサイズ調整済み */}
                  <h3 className="text-2xl sm:text-3xl font-bold text-gray-900 mb-4">
-                   IT業務の「かかりつけ医」プラン <span className="text-lg font-normal text-gray-500 ml-2">(月額サポート)</span>
+                   IT業務の「かかりつけ医」プラン <span className="block sm:inline text-base font-normal text-gray-500 sm:ml-2 mt-1 sm:mt-0">(月額サポート)</span>
                  </h3>
-                 <p className="text-gray-600 text-lg leading-relaxed mb-6">
+                 <p className="text-gray-600 text-base sm:text-lg leading-relaxed mb-6">
                    「ベンダーに頼むほどでもないけど、自分では直せない」<br/>
                    そんな日々の小さなITトラブルを、チャット一本で解決します。<br/>
                    社内にIT担当者を一人雇う感覚でご利用ください。
@@ -50,7 +51,8 @@ export const Services: React.FC = () => {
                  <ul className="space-y-3">
                    <li className="flex items-start text-gray-700">
                      <Check className="w-5 h-5 text-green-500 mr-3 flex-shrink-0 mt-0.5" />
-                     <span><strong>Excel・スプレッドシートの修正</strong><br/><span className="text-sm text-gray-500">「#N/Aエラーが消えない」「ピボットテーブルを作って」など</span></span>
+                     {/* Kintoneを追加！ */}
+                     <span><strong>Excel・Kintoneの修正・設定</strong><br/><span className="text-sm text-gray-500">「エラー修正」や「Kintoneの項目追加・権限設定」など</span></span>
                    </li>
                    <li className="flex items-start text-gray-700">
                      <Check className="w-5 h-5 text-green-500 mr-3 flex-shrink-0 mt-0.5" />
@@ -58,7 +60,7 @@ export const Services: React.FC = () => {
                    </li>
                    <li className="flex items-start text-gray-700">
                      <Check className="w-5 h-5 text-green-500 mr-3 flex-shrink-0 mt-0.5" />
-                     <span><strong>ツールの選定・導入相談</strong><br/><span className="text-sm text-gray-500">「この業務に合うアプリはある？」「アプリの設定方法教えて」</span></span>
+                     <span><strong>ツールの選定・導入相談</strong><br/><span className="text-sm text-gray-500">「この業務に合うアプリはある？」「このシステムの設定方法教えて」</span></span>
                    </li>
                  </ul>
                  <p className="text-right text-xs text-gray-400 mt-4">
@@ -93,28 +95,29 @@ export const Services: React.FC = () => {
                 <Check className="w-4 h-4 text-green-500 mr-2" /> 在庫表の自動更新
               </li>
             </ul>
-            <p className="text-lg font-bold text-gray-900">目安: 3万円〜</p>
+            <p className="text-lg font-bold text-gray-900">目安: 1万円〜10万円</p>
           </div>
 
-          {/* Service 2: App */}
+          {/* Service 2: Kintone (ここを大幅リニューアル！) */}
           <div className="bg-white rounded-2xl p-8 shadow-sm border border-gray-200 hover:shadow-md transition-shadow">
             <div className="w-12 h-12 bg-blue-100 rounded-lg flex items-center justify-center mb-6">
-              <Smartphone className="w-6 h-6 text-blue-600" />
+              <Cloud className="w-6 h-6 text-blue-600" />
             </div>
-            <h3 className="text-xl font-bold text-gray-900 mb-2">業務アプリ開発</h3>
-            <p className="text-sm text-blue-600 font-semibold mb-4">システム構築</p>
+            <h3 className="text-xl font-bold text-gray-900 mb-2">Kintone導入・開発 または 業務アプリ開発</h3>
+            <p className="text-sm text-blue-600 font-semibold mb-4">業務システム構築</p>
             <p className="text-gray-600 mb-6 text-sm">
-              スマホやタブレットで使える専用アプリ。現場と事務所をリアルタイムで繋ぎます。
+              CMでおなじみのKintoneを使って、脱Excel！バラバラな情報を一つにまとめます。<br/>
+              または、Googleスプレッドシートやデータベースを使った軽量業務アプリも対応可能です。
             </p>
             <ul className="space-y-3 mb-8">
               <li className="flex items-center text-sm text-gray-700">
-                <Check className="w-4 h-4 text-blue-500 mr-2" /> スマホで簡単日報
+                <Check className="w-4 h-4 text-blue-500 mr-2" /> 顧客・案件管理アプリ
               </li>
               <li className="flex items-center text-sm text-gray-700">
-                <Check className="w-4 h-4 text-blue-500 mr-2" /> LINE連携予約システム
+                <Check className="w-4 h-4 text-blue-500 mr-2" /> 外出先からスマホで日報
               </li>
             </ul>
-            <p className="text-lg font-bold text-gray-900">目安: 15万円〜</p>
+            <p className="text-lg font-bold text-gray-900">目安: 10万円〜</p>
           </div>
 
           {/* Service 3: System */}
