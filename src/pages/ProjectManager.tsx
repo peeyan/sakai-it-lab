@@ -95,7 +95,7 @@ export const ProjectManager: React.FC = () => {
         {/* ヘッダーエリア */}
         <div className="flex justify-between items-center mb-8">
           <div>
-            <h1 className="text-3xl font-bold text-gray-900">📁 案件管理システム (Mini Kintone)</h1>
+            <h1 className="text-3xl font-bold text-gray-900">📁 案件管理システム</h1>
             <p className="text-gray-500 mt-1">プロジェクトの進捗と売上を一元管理</p>
           </div>
           <div className="flex gap-3">
