@@ -46,7 +46,7 @@ export const CreateNewsModal: React.FC<Props> = ({ isOpen, onClose, onSuccess, i
 
     // 編集か新規かで切り替え
     const isEditMode = !!initialData;
-    const url = isEditMode ? '/api/news/update' : '/api/news/add';
+    const url = '/api/news';
     const method = isEditMode ? 'PUT' : 'POST';
 
     const bodyData = {

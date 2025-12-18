@@ -44,7 +44,7 @@ export const Admin: React.FC = () => {
   const fetchData = () => {
     setLoading(true);
     Promise.all([
-      fetch("/api/achievements").then((res) => res.json()),
+      fetch("/api/achievement").then((res) => res.json()),
       fetch("/api/news").then((res) => res.json()),
     ])
       .then(([achievementsData, newsData]) => {
@@ -106,8 +106,8 @@ export const Admin: React.FC = () => {
     if (!deleteTarget) return;
 
     const url = deleteTarget.type === 'achievement'
-      ? '/api/achievements/delete'
-      : '/api/news/delete';
+      ? '/api/achievement'
+      : '/api/news';
 
     try {
       const res = await fetch(url, {

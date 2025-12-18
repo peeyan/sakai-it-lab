@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import { Button } from '../ui/Button';
 
 // 扱うデータの型
@@ -63,7 +63,7 @@ export const CreateProjectModal: React.FC<Props> = ({ isOpen, onClose, onSuccess
     setIsSubmitting(true);
 
     const isEditMode = !!initialData;
-    const url = isEditMode ? '/api/projects/update' : '/api/projects/add';
+    const url = '/api/projects';
     const method = isEditMode ? 'PUT' : 'POST';
 
     try {

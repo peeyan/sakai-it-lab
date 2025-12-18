@@ -41,7 +41,7 @@ export const CreateAchievementModal: React.FC<Props> = ({ isOpen, onClose, onSuc
 
     // 編集モードか新規モードかで、宛先(URL)とメソッドを変える
     const isEditMode = !!initialData;
-    const url = isEditMode ? '/api/achievements/update' : '/api/achievements/add';
+    const url = '/api/achievement';
     const method = isEditMode ? 'PUT' : 'POST';
 
     // 送信するデータ（編集時はIDも含める）
