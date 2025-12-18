@@ -3,10 +3,11 @@ import mysql from 'mysql2/promise';
 export default async function handler(req, res) {
   // ▼▼▼ ここをTiDBの接続情報に書き換えてください ▼▼▼
   const connection = await mysql.createConnection({
-    host: 'gateway01.ap-northeast-1.prod.aws.tidbcloud.com', // TiDBのHost
-    user: '3ud96pUaGmpQD1q.root', // TiDBのUser (プレフィックス.root みたいな形式です)
-    password: '3A6LLnjVh11ABwL0', // TiDBのPassword
-    database: 'test', // TiDBのDatabase名（デフォルトでtestがあるはずです）
+    // process.env.〇〇 で .env.local の中身を読み込みます
+    host: process.env.TIDB_HOST,
+    user: process.env.TIDB_USER,
+    password: process.env.TIDB_PASSWORD,
+    database: process.env.TIDB_DATABASE || 'test',
     ssl: {
       minVersion: 'TLSv1.2',
       rejectUnauthorized: true
