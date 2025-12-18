@@ -2,9 +2,9 @@ import React, { useState } from 'react';
 import { Button } from '../ui/Button';
 
 type Props = {
-  isOpen: boolean;        // 開いているか？
+  isOpen: boolean;
   onClose: () => void;    // 閉じる時の処理
-  onSuccess: () => void;  // 成功した時の処理（リスト更新など）
+  onSuccess: () => void;  // 成功した時の処理
 };
 
 export const CreateAchievementModal: React.FC<Props> = ({ isOpen, onClose, onSuccess }) => {
@@ -20,21 +20,21 @@ export const CreateAchievementModal: React.FC<Props> = ({ isOpen, onClose, onSuc
     setIsSubmitting(true);
 
     try {
-      const res = await fetch('/api/add-achievement', {
+      const res = await fetch('/api/achievements/add', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ 
-          title: title, 
-          hours: Number(hours) 
+        body: JSON.stringify({
+          title: title,
+          hours: Number(hours)
         }),
       });
 
       if (res.ok) {
         alert('登録しました！');
-        setTitle(''); // 入力欄リセット
+        setTitle('');
         setHours('');
-        onSuccess(); // 親（Admin）に「リスト更新して！」と伝える
-        onClose();   // モーダルを閉じる
+        onSuccess();
+        onClose();
       } else {
         alert('エラーが発生しました');
       }
@@ -49,12 +49,11 @@ export const CreateAchievementModal: React.FC<Props> = ({ isOpen, onClose, onSuc
     <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center p-4 z-50">
       <div className="bg-white rounded-xl shadow-xl p-6 w-full max-w-md">
         <h3 className="text-xl font-bold mb-4">✨ 実績の追加</h3>
-        
         <form onSubmit={handleSubmit} className="space-y-4">
           <div>
             <label className="block text-sm font-bold text-gray-700 mb-1">案件名</label>
-            <input 
-              type="text" 
+            <input
+              type="text"
               required
               placeholder="例：D社 経費精算自動化"
               className="w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-indigo-500 outline-none"
@@ -64,8 +63,8 @@ export const CreateAchievementModal: React.FC<Props> = ({ isOpen, onClose, onSuc
           </div>
           <div>
             <label className="block text-sm font-bold text-gray-700 mb-1">削減時間 (h)</label>
-            <input 
-              type="number" 
+            <input
+              type="number"
               required
               placeholder="例：10"
               className="w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-indigo-500 outline-none"

@@ -1,4 +1,4 @@
-import mysql from 'mysql2/promise';
+import { getDbConnection } from '../../lib/db';
 
 export default async function handler(req, res) {
   // DELETEメソッド以外は拒否
@@ -13,17 +13,7 @@ export default async function handler(req, res) {
     return res.status(400).json({ error: 'IDがありません' });
   }
 
-  const connection = await mysql.createConnection({
-    host: process.env.TIDB_HOST,
-    user: process.env.TIDB_USER,
-    password: process.env.TIDB_PASSWORD,
-    database: process.env.TIDB_DATABASE || 'test',
-    port: 4000,
-    ssl: {
-      minVersion: 'TLSv1.2',
-      rejectUnauthorized: true
-    }
-  });
+  const connection = await getDbConnection();
 
   try {
     // 指定されたIDのデータを削除する

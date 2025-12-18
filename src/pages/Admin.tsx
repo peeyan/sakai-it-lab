@@ -48,7 +48,7 @@ export const Admin: React.FC = () => {
     if (!confirm('本当に削除してもよろしいですか？')) return;
 
     try {
-      const res = await fetch('/api/delete-achievement', {
+      const res = await fetch('/api/achievements/delete', {
         method: 'DELETE',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ id }),
