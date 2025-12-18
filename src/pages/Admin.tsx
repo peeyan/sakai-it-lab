@@ -145,6 +145,15 @@ export const Admin: React.FC = () => {
             <a href="/" className="text-indigo-600 hover:underline text-sm">
               サイトに戻る
             </a>
+
+            <Button
+              variant="primary"
+              className="bg-green-600 hover:bg-green-700 mr-2"
+              onClick={() => navigate('/admin/projects')}
+            >
+              📁 案件管理システムへ
+            </Button>
+
             <Button
               variant="secondary"
               onClick={handleLogout}
