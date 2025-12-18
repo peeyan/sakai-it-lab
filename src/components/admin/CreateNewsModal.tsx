@@ -1,17 +1,42 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Button } from '../ui/Button';
+
+// データ型
+type NewsData = {
+  id?: number;
+  title: string;
+  content: string;
+  published_date: string;
+};
 
 type Props = {
   isOpen: boolean;
   onClose: () => void;
   onSuccess: () => void;
+  initialData?: NewsData | null;
 };
 
-export const CreateNewsModal: React.FC<Props> = ({ isOpen, onClose, onSuccess }) => {
+export const CreateNewsModal: React.FC<Props> = ({ isOpen, onClose, onSuccess, initialData }) => {
   const [title, setTitle] = useState('');
   const [content, setContent] = useState('');
-  const [date, setDate] = useState(new Date().toISOString().split('T')[0]); // 今日の日付
+  const [date, setDate] = useState('');
   const [isSubmitting, setIsSubmitting] = useState(false);
+
+  // モーダルが開くたびに中身をセット
+  useEffect(() => {
+    if (initialData) {
+      // 編集モード：日付の形式(yyyy-mm-dd)を整えてセット
+      const formattedDate = new Date(initialData.published_date).toISOString().split('T')[0];
+      setTitle(initialData.title);
+      setContent(initialData.content || '');
+      setDate(formattedDate);
+    } else {
+      // 新規モード：今日の日付をセット
+      setTitle('');
+      setContent('');
+      setDate(new Date().toISOString().split('T')[0]);
+    }
+  }, [isOpen, initialData]);
 
   if (!isOpen) return null;
 
@@ -19,21 +44,27 @@ export const CreateNewsModal: React.FC<Props> = ({ isOpen, onClose, onSuccess })
     e.preventDefault();
     setIsSubmitting(true);
 
+    // 編集か新規かで切り替え
+    const isEditMode = !!initialData;
+    const url = isEditMode ? '/api/news/update' : '/api/news/add';
+    const method = isEditMode ? 'PUT' : 'POST';
+
+    const bodyData = {
+      id: initialData?.id,
+      title,
+      content,
+      published_date: date
+    };
+
     try {
-      const res = await fetch('/api/news/add', {
-        method: 'POST',
+      const res = await fetch(url, {
+        method: method,
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          title,
-          content,
-          published_date: date
-        }),
+        body: JSON.stringify(bodyData),
       });
 
       if (res.ok) {
-        alert('お知らせを登録しました！');
-        setTitle('');
-        setContent('');
+        alert(isEditMode ? 'お知らせを更新しました！' : 'お知らせを投稿しました！');
         onSuccess();
         onClose();
       } else {
@@ -49,10 +80,11 @@ export const CreateNewsModal: React.FC<Props> = ({ isOpen, onClose, onSuccess })
   return (
     <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center p-4 z-50">
       <div className="bg-white rounded-xl shadow-xl p-6 w-full max-w-lg">
-        <h3 className="text-xl font-bold mb-4">📢 お知らせの投稿</h3>
+        <h3 className="text-xl font-bold mb-4">
+          {initialData ? '✏️ お知らせの編集' : '📢 お知らせの投稿'}
+        </h3>
 
         <form onSubmit={handleSubmit} className="space-y-4">
-          {/* タイトル */}
           <div>
             <label className="block text-sm font-bold text-gray-700 mb-1">タイトル</label>
             <input
@@ -64,7 +96,6 @@ export const CreateNewsModal: React.FC<Props> = ({ isOpen, onClose, onSuccess })
             />
           </div>
 
-          {/* 公開日 */}
           <div>
             <label className="block text-sm font-bold text-gray-700 mb-1">公開日</label>
             <input
@@ -76,7 +107,6 @@ export const CreateNewsModal: React.FC<Props> = ({ isOpen, onClose, onSuccess })
             />
           </div>
 
-          {/* 本文（複数行入力） */}
           <div>
             <label className="block text-sm font-bold text-gray-700 mb-1">本文</label>
             <textarea
@@ -96,7 +126,7 @@ export const CreateNewsModal: React.FC<Props> = ({ isOpen, onClose, onSuccess })
               キャンセル
             </button>
             <Button type="submit" variant="primary" disabled={isSubmitting}>
-              投稿する
+              {initialData ? '更新する' : '投稿する'}
             </Button>
           </div>
         </form>

@@ -15,6 +15,7 @@ type Achievement = {
 type NewsItem = {
   id: number;
   title: string;
+  content: string;
   published_date: string;
   created_at: string;
 };
@@ -25,7 +26,8 @@ export const Admin: React.FC = () => {
   const [showModal, setShowModal] = useState(false); // モーダル開閉の状態だけ持つ
   const [newsList, setNewsList] = useState<NewsItem[]>([]); // お知らせデータ
   const [showNewsModal, setShowNewsModal] = useState(false); // お知らせモーダル用
-  const [editingItem, setEditingItem] = useState<Achievement | null>(null); // 編集中のデータ
+  const [editingItem, setEditingItem] = useState<Achievement | null>(null); // 実績編集中のデータ
+  const [editingNews, setEditingNews] = useState<NewsItem | null>(null); // お知らせ編集中のデータ
   const navigate = useNavigate();
 
   // 1. ログインチェック
@@ -56,16 +58,28 @@ export const Admin: React.FC = () => {
     fetchData();
   }, []);
 
-  // 編集ボタンを押した時
+  // 実績編集ボタンを押した時
   const handleEdit = (item: Achievement) => {
     setEditingItem(item); // 編集したいデータをセット
     setShowModal(true); // モーダルを開く
   };
 
-  // モーダルを閉じる時（編集状態もリセット）
+  // 実績モーダルを閉じる時（編集状態もリセット）
   const handleCloseModal = () => {
     setEditingItem(null); // クリア
     setShowModal(false); // 閉じる
+  };
+
+  // お知らせ編集ボタンを押した時
+  const handleEditNews = (item: NewsItem) => {
+    setEditingNews(item);
+    setShowNewsModal(true);
+  };
+
+  // お知らせモーダルを閉じる時
+  const handleCloseNewsModal = () => {
+    setEditingNews(null);
+    setShowNewsModal(false);
   };
 
   // ▼ 削除機能を追加
@@ -215,6 +229,12 @@ export const Admin: React.FC = () => {
                   <td className="p-3 font-bold text-gray-800">{item.title}</td>
                   <td className="p-3">
                     <button
+                      onClick={() => handleEditNews(item)}
+                      className="text-indigo-600 hover:text-indigo-900 hover:bg-indigo-50 px-3 py-1 rounded transition-colors text-sm font-bold"
+                    >
+                      編集
+                    </button>
+                    <button
                       onClick={() => handleDeleteNews(item.id)}
                       className="text-red-500 hover:text-red-700 text-sm font-bold"
                     >
@@ -229,8 +249,9 @@ export const Admin: React.FC = () => {
 
         <CreateNewsModal
           isOpen={showNewsModal}
-          onClose={() => setShowNewsModal(false)}
+          onClose={handleCloseNewsModal}
           onSuccess={fetchData}
+          initialData={editingNews}
         />
       </div>
 
