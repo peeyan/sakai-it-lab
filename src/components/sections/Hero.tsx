@@ -21,7 +21,7 @@ export const Hero: React.FC = () => {
               <span className="text-sm font-bold text-indigo-900">堺の企業を応援する、ITの便利屋さん</span>
             </div>
 
-            <h1 className="text-2xl sm:text-4xl md:text-5xl font-extrabold text-gray-900 tracking-tight mb-6 leading-tight">
+            <h2 className="text-2xl sm:text-3xl md:text-5xl font-extrabold text-gray-900 tracking-tight mb-6 leading-tight">
               「また残業かぁ…」そのため息、
               <span className="text-indigo-600 relative whitespace-normal sm:whitespace-nowrap block md:inline mt-2 md:mt-0">
                  私に預けてみませんか？
@@ -29,7 +29,7 @@ export const Hero: React.FC = () => {
                   <path d="M0 5 Q 50 10 100 5" stroke="currentColor" strokeWidth="8" fill="none" />
                 </svg>
               </span>
-            </h1>
+            </h2>
 
             <p className="text-lg md:text-xl text-gray-600 mb-8 leading-relaxed font-medium">
               難しい専門用語は使いません。<br />
