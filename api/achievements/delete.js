@@ -1,4 +1,4 @@
-import { getDbConnection } from '../../lib/db';
+import { getDbConnection } from '../_db';
 
 export default async function handler(req, res) {
   // DELETEメソッド以外は拒否
