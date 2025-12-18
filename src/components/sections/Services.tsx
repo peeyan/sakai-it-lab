@@ -17,14 +17,13 @@ export const Services: React.FC = () => {
            <div className="bg-white rounded-3xl p-8 md:p-12 shadow-xl border-2 border-indigo-100 relative overflow-hidden">
              {/* 背景装飾 */}
              <div className="absolute top-0 right-0 w-64 h-64 bg-orange-100 rounded-full mix-blend-multiply filter blur-3xl opacity-50 -translate-y-1/2 translate-x-1/2"></div>
-             
              <div className="grid lg:grid-cols-2 gap-10 items-center relative z-10">
                <div>
                  <div className="inline-flex items-center gap-2 bg-orange-100 text-orange-800 text-sm font-bold px-3 py-1 rounded-full mb-4">
                    <Zap className="w-4 h-4" />
                    人気No.1プラン
                  </div>
-                 <h3 className="text-3xl font-bold text-gray-900 mb-4">
+                 <h3 className="text-2xl sm:text-3xl font-bold text-gray-900 mb-4">
                    IT業務の「かかりつけ医」プラン <span className="text-lg font-normal text-gray-500 ml-2">(月額サポート)</span>
                  </h3>
                  <p className="text-gray-600 text-lg leading-relaxed mb-6">
@@ -76,7 +75,6 @@ export const Services: React.FC = () => {
         </div>
 
         <div className="grid lg:grid-cols-3 gap-8 items-start">
-          
           {/* Service 1: Excel */}
           <div className="bg-white rounded-2xl p-8 shadow-sm border border-gray-200 hover:shadow-md transition-shadow">
             <div className="w-12 h-12 bg-green-100 rounded-lg flex items-center justify-center mb-6">

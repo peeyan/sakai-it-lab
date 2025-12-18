@@ -37,10 +37,10 @@ export const Contact: React.FC = () => {
             <MessageCircle className="w-6 h-6 text-white" />
           </div>
 
-          <h2 className="text-3xl md:text-4xl font-bold mb-4 drop-shadow-md leading-snug">
+          <p className="text-indigo-100 text-base sm:text-lg">
             準備はいりません。<br/>
             「これ、なんとかなる？」だけでOKです。
-          </h2>
+          </p>
 
           <p className="text-indigo-100 text-lg">
             正式な依頼の前に、まずは相性確認のおしゃべりから始めませんか？<br />
@@ -56,7 +56,7 @@ export const Contact: React.FC = () => {
               <input
                 type="text"
                 id="name"
-                name="name" // name属性が必須になります
+                name="name" // name属性が必須
                 required
                 className="w-full px-4 py-3 bg-gray-50 border border-gray-200 rounded-lg focus:ring-2 focus:ring-indigo-500 outline-none transition-colors"
                 placeholder="ニックネームでもOKです"
@@ -95,8 +95,10 @@ export const Contact: React.FC = () => {
           <Button
             type="submit"
             variant="accent"
-            className="w-full py-4 text-lg font-bold shadow-lg hover:shadow-xl transform transition hover:-translate-y-1"
-            disabled={state.submitting} // 送信中はボタンを押せなくする
+            // py-3 sm:py-4 : スマホでは縦幅を少し狭く、PCでは広く
+            // text-base sm:text-lg : スマホでは文字サイズを標準に、PCでは大きく
+            className="w-full py-3 sm:py-4 text-base sm:text-lg font-bold shadow-lg hover:shadow-xl transform transition hover:-translate-y-1"
+            disabled={state.submitting}
           >
             <Mail className="w-5 h-5 mr-2" />
             {state.submitting ? '送信中...' : 'とりあえず聞いてみる（無料）'}

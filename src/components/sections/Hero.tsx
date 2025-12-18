@@ -8,14 +8,12 @@ export const Hero: React.FC = () => {
     <section className="relative pt-28 pb-20 lg:pt-40 lg:pb-32 overflow-hidden">
       {/* 背景グラデーション：少し濃くして白文字を見やすく */}
       <div className="absolute inset-0 bg-gradient-to-br from-indigo-50 via-white to-orange-100 -z-20"></div>
-      
       {/* 装飾用の背景ブラー（温かみを出すオレンジの光） */}
       <div className="absolute right-0 top-1/2 -translate-y-1/2 translate-x-1/4 w-96 h-96 bg-orange-200 rounded-full mix-blend-multiply filter blur-3xl opacity-50 -z-10 hidden lg:block"></div>
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* PCでは2列、スマホでは1列のグリッドレイアウト */}
         <div className="grid lg:grid-cols-2 gap-12 lg:gap-8 items-center">
-          
           {/* 左側：テキストコンテンツ（スマホでは上） */}
           <div className="text-center lg:text-left order-2 lg:order-1">
             <div className="inline-flex items-center gap-2 bg-white border border-indigo-100 shadow-sm px-4 py-1.5 rounded-full mb-8">
@@ -23,9 +21,9 @@ export const Hero: React.FC = () => {
               <span className="text-sm font-bold text-indigo-900">堺の企業を応援する、ITの便利屋さん</span>
             </div>
 
-            <h1 className="text-4xl md:text-5xl font-extrabold text-gray-900 tracking-tight mb-6 leading-tight">
+            <h1 className="text-3xl sm:text-4xl md:text-5xl font-extrabold text-gray-900 tracking-tight mb-6 leading-tight">
               「また残業かぁ…」そのため息、
-              <span className="text-indigo-600 relative whitespace-nowrap block md:inline">
+              <span className="text-indigo-600 relative whitespace-normal sm:whitespace-nowrap block md:inline mt-2 md:mt-0">
                  私に預けてみませんか？
                 <svg className="absolute w-full h-3 -bottom-1 left-0 text-orange-200 -z-10" viewBox="0 0 100 10" preserveAspectRatio="none">
                   <path d="M0 5 Q 50 10 100 5" stroke="currentColor" strokeWidth="8" fill="none" />

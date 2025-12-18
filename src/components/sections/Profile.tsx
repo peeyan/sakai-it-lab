@@ -39,12 +39,12 @@ export const Profile: React.FC = () => {
             <div className="inline-block bg-indigo-100 text-indigo-800 text-xs font-bold px-2 py-1 rounded-md mb-2">
               PROFILE
             </div>
-            <h2 className="text-2xl font-bold text-gray-900 mb-2">
+            <h2 className="text-xl sm:text-2xl font-bold text-gray-900 mb-2">
               あなたの「隣の席の同僚」に相談する感覚で。
             </h2>
 
-            <p className="text-xl font-bold text-gray-900 mb-2">
-              代表：宮岡 幸平 <span className="text-base font-normal text-gray-500 ml-2">Miyaoka Kohei</span>
+            <p className="text-lg sm:text-xl font-bold text-gray-900 mb-2">
+              代表：宮岡 幸平 <span className="block sm:inline text-sm sm:text-base font-normal text-gray-500 sm:ml-2">Miyaoka Kohei</span>
             </p>
 
             <div className="flex items-center justify-center md:justify-start gap-2 text-gray-500 font-medium mb-4 text-sm">
