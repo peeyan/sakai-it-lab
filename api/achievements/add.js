@@ -1,4 +1,4 @@
-import { getDbConnection } from '../_db';
+import { getDbConnection } from '../_db.js';
 
 export default async function handler(req, res) {
   // POST（データの送信）以外は拒否
