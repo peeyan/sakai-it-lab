@@ -5,6 +5,7 @@ import { Toast } from '../components/ui/Toast';
 import { ConfirmDialog } from '../components/ui/ConfirmDialog';
 import { CreateAchievementModal } from "../components/admin/CreateAchievementModal";
 import { CreateNewsModal } from "../components/admin/CreateNewsModal";
+import { DashboardGraphs } from '../components/admin/DashboardGraphs';
 
 // データ型を定義
 type Achievement = {
@@ -30,6 +31,7 @@ export const Admin: React.FC = () => {
   const [showNewsModal, setShowNewsModal] = useState(false); // お知らせモーダル用
   const [editingItem, setEditingItem] = useState<Achievement | null>(null); // 実績編集中のデータ
   const [editingNews, setEditingNews] = useState<NewsItem | null>(null); // お知らせ編集中のデータ
+  const [projects, setProjects] = useState<any[]>([]); // 案件データ用
   const [toast, setToast] = useState({ show: false, message: '', type: 'success' as 'success' | 'error' }); // トースト通知用
   const [deleteTarget, setDeleteTarget] = useState<{ id: number, type: 'achievement' | 'news' } | null>(null); // 削除確認通知用
   const navigate = useNavigate();
@@ -46,10 +48,12 @@ export const Admin: React.FC = () => {
     Promise.all([
       fetch("/api/achievement").then((res) => res.json()),
       fetch("/api/news").then((res) => res.json()),
+      fetch('/api/projects').then(res => res.json())
     ])
-      .then(([achievementsData, newsData]) => {
+      .then(([achievementsData, newsData, projectsData]) => {
         setData(achievementsData); // 業務削減実績データ
         setNewsList(newsData); // お知らせデータ
+        setProjects(projectsData); // 案件データ
         setLoading(false);
       })
       .catch((err) => {
@@ -163,6 +167,11 @@ export const Admin: React.FC = () => {
             </Button>
           </div>
         </div>
+
+        {/* ダッシュボードグラフ表示 */}
+        {!loading && (
+          <DashboardGraphs achievements={data} projects={projects} />
+        )}
 
         <div className="bg-white rounded-xl shadow-md p-6">
           <div className="flex justify-between items-center mb-4 border-b pb-2">
