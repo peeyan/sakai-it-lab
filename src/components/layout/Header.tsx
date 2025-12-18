@@ -12,12 +12,12 @@ export const Header: React.FC = () => {
   ];
 
   return (
-    <header className="fixed w-full bg-white/90 backdrop-blur-md z-50 border-b border-gray-100">
+    <header className="fixed w-full bg-white/90 backdrop-blur-md z-50 border-b border-indigo-50">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between items-center h-20">
           {/* Logo */}
           <div className="flex-shrink-0 flex items-center gap-2 cursor-pointer" onClick={() => window.scrollTo(0, 0)}>
-            <div className="bg-blue-600 p-2 rounded-lg">
+            <div className="bg-indigo-600 p-2 rounded-lg rotate-3 transition-transform hover:rotate-0">
               <Code2 className="h-6 w-6 text-white" />
             </div>
             <span className="font-bold text-xl tracking-tight text-gray-900">
@@ -31,13 +31,15 @@ export const Header: React.FC = () => {
               <a
                 key={item.label}
                 href={item.href}
-                className="text-gray-600 hover:text-blue-600 font-medium transition-colors"
+                className="text-gray-600 hover:text-indigo-600 font-medium transition-colors relative group"
               >
                 {item.label}
+                <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-indigo-600 transition-all group-hover:w-full"></span>
               </a>
             ))}
             <a href="#contact">
-              <Button variant="primary" className="py-2 px-4 text-sm">
+              {/* ここをオレンジ(accent)に変更！ */}
+              <Button variant="accent" className="py-2 px-6 text-sm rounded-full">
                 無料相談する
               </Button>
             </a>
@@ -47,7 +49,7 @@ export const Header: React.FC = () => {
           <div className="md:hidden flex items-center">
             <button
               onClick={() => setIsOpen(!isOpen)}
-              className="text-gray-600 hover:text-gray-900 focus:outline-none p-2"
+              className="text-gray-600 hover:text-indigo-600 focus:outline-none p-2"
             >
               {isOpen ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
             </button>
@@ -63,7 +65,7 @@ export const Header: React.FC = () => {
               <a
                 key={item.label}
                 href={item.href}
-                className="block px-3 py-3 text-base font-medium text-gray-700 hover:text-blue-600 hover:bg-gray-50 rounded-md"
+                className="block px-3 py-3 text-base font-medium text-gray-700 hover:text-indigo-600 hover:bg-indigo-50 rounded-md"
                 onClick={() => setIsOpen(false)}
               >
                 {item.label}
@@ -71,7 +73,7 @@ export const Header: React.FC = () => {
             ))}
             <div className="pt-4">
               <a href="#contact" onClick={() => setIsOpen(false)}>
-                <Button variant="primary" className="w-full justify-center">
+                <Button variant="accent" className="w-full justify-center">
                   無料相談する
                 </Button>
               </a>
