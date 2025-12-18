@@ -42,6 +42,29 @@ export const Admin: React.FC = () => {
     fetchData();
   }, []);
 
+  // ▼ 削除機能を追加
+  const handleDelete = async (id: number) => {
+    // うっかり削除防止の確認ダイアログ
+    if (!confirm('本当に削除してもよろしいですか？')) return;
+
+    try {
+      const res = await fetch('/api/delete-achievement', {
+        method: 'DELETE',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ id }),
+      });
+
+      if (res.ok) {
+        alert('削除しました');
+        fetchData(); // リストを更新
+      } else {
+        alert('削除に失敗しました');
+      }
+    } catch (err) {
+      alert('通信エラーです');
+    }
+  };
+
   const handleLogout = () => {
     localStorage.removeItem('isAdmin');
     navigate('/login');
@@ -80,6 +103,7 @@ export const Admin: React.FC = () => {
                     <th className="p-3 font-bold text-gray-600">案件名</th>
                     <th className="p-3 font-bold text-gray-600">削減時間</th>
                     <th className="p-3 font-bold text-gray-600">登録日</th>
+                    <th className="p-3 font-bold text-gray-600">操作</th>
                   </tr>
                 </thead>
                 <tbody>
@@ -94,6 +118,14 @@ export const Admin: React.FC = () => {
                       </td>
                       <td className="p-3 text-gray-400 text-sm">
                         {new Date(item.created_at).toLocaleDateString()}
+                      </td>
+                      <td className="p-3">
+                        <button
+                          onClick={() => handleDelete(item.id)}
+                          className="text-red-500 hover:text-red-700 hover:bg-red-50 px-3 py-1 rounded transition-colors text-sm font-bold"
+                        >
+                          削除
+                        </button>
                       </td>
                     </tr>
                   ))}
