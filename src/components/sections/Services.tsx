@@ -7,8 +7,8 @@ export const Services: React.FC = () => {
   return (
     <section id="services" className="py-20 bg-gray-50">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <SectionTitle 
-          title="ご提供できる解決策" 
+        <SectionTitle
+          title="ご提供できる解決策"
           subtitle="「単発でのご依頼」も「継続的なサポート」も、柔軟に対応します。"
         />
 
@@ -58,7 +58,7 @@ export const Services: React.FC = () => {
                    </li>
                    <li className="flex items-start text-gray-700">
                      <Check className="w-5 h-5 text-green-500 mr-3 flex-shrink-0 mt-0.5" />
-                     <span><strong>ツールの選定・導入相談</strong><br/><span className="text-sm text-gray-500">「この業務に合うアプリはある？」「Airレジの設定方法教えて」</span></span>
+                     <span><strong>ツールの選定・導入相談</strong><br/><span className="text-sm text-gray-500">「この業務に合うアプリはある？」「アプリの設定方法教えて」</span></span>
                    </li>
                  </ul>
                  <p className="text-right text-xs text-gray-400 mt-4">
