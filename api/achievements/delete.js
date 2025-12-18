@@ -18,8 +18,6 @@ export default async function handler(req, res) {
   try {
     // 指定されたIDのデータを削除する
     await connection.execute('DELETE FROM achievements WHERE id = ?', [id]);
-
-    res.status(200).json({ message: '削除成功' });
   } catch (error) {
     res.status(500).json({ error: error.message });
   } finally {

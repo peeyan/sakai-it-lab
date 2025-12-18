@@ -8,9 +8,7 @@ export default async function handler(req, res) {
 
   // フロントエンドから送られてきたデータを受け取る
   const { title, hours } = req.body;
-  if (!title || !hours) {
-    return res.status(400).json({ error: '入力内容が足りません' });
-  }
+  if (!title || !hours) {return;}
 
   const connection = await getDbConnection();
 
@@ -21,9 +19,6 @@ export default async function handler(req, res) {
       'INSERT INTO achievements (title, hours) VALUES (?, ?)',
       [title, hours]
     );
-
-    res.status(200).json({ message: '登録完了！' });
-
   } catch (error) {
     res.status(500).json({ error: error.message });
   } finally {

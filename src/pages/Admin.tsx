@@ -105,8 +105,8 @@ export const Admin: React.FC = () => {
   const executeDelete = async () => {
     if (!deleteTarget) return;
 
-    const url = deleteTarget.type === 'achievement' 
-      ? '/api/achievements/delete' 
+    const url = deleteTarget.type === 'achievement'
+      ? '/api/achievements/delete'
       : '/api/news/delete';
 
     try {

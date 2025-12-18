@@ -14,16 +14,12 @@ export default async function handler(req, res) {
 
   try {
     const connection = await getDbConnection();
-
     // お知らせを更新するSQL
     await connection.execute(
       'UPDATE news SET title = ?, content = ?, published_date = ? WHERE id = ?',
       [title, content || '', published_date, id]
     );
-
     await connection.end();
-    res.status(200).json({ message: '更新成功！' });
-
   } catch (error) {
     console.error(error);
     res.status(500).json({ error: error.message });

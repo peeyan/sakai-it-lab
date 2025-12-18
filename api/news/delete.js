@@ -7,7 +7,6 @@ export default async function handler(req, res) {
   const connection = await getDbConnection();
   try {
     await connection.execute('DELETE FROM news WHERE id = ?', [id]);
-    res.status(200).json({ message: '削除成功' });
   } catch (error) {
     res.status(500).json({ error: error.message });
   } finally {

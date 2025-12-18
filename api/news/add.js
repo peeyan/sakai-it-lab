@@ -10,7 +10,6 @@ export default async function handler(req, res) {
       'INSERT INTO news (title, content, published_date) VALUES (?, ?, ?)',
       [title, content || '', published_date]
     );
-    res.status(200).json({ message: '登録成功' });
   } catch (error) {
     res.status(500).json({ error: error.message });
   } finally {
