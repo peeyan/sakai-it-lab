@@ -64,14 +64,11 @@ export const CreateNewsModal: React.FC<Props> = ({ isOpen, onClose, onSuccess, i
       });
 
       if (res.ok) {
-        alert(isEditMode ? 'お知らせを更新しました！' : 'お知らせを投稿しました！');
         onSuccess();
         onClose();
       } else {
-        alert('エラーが発生しました');
       }
     } catch (err) {
-      alert('通信エラーです');
     } finally {
       setIsSubmitting(false);
     }

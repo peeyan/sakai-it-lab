@@ -21,7 +21,10 @@ export default async function handler(req, res) {
       'UPDATE achievements SET title = ?, hours = ? WHERE id = ?',
       [title, hours, id]
     );
+
     await connection.end();
+    res.status(200).json({ message: '更新成功！' });
+
   } catch (error) {
     console.error(error);
     res.status(500).json({ error: error.message });

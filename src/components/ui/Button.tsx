@@ -6,7 +6,7 @@ type ButtonProps = {
   className?: string;
   onClick?: () => void;
   type?: 'button' | 'submit';
-  disabled?: boolean; // ★ここを追加しました！
+  disabled?: boolean;
 };
 
 export const Button: React.FC<ButtonProps> = ({
@@ -31,7 +31,7 @@ export const Button: React.FC<ButtonProps> = ({
       type={type}
       className={`${baseStyles} ${variants[variant]} ${className}`}
       onClick={onClick}
-      disabled={disabled} // ★HTMLのボタン自体を無効化します
+      disabled={disabled}
     >
       {children}
     </button>

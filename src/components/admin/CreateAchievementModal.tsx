@@ -3,7 +3,7 @@ import { Button } from '../ui/Button';
 
 // 扱うデータの形
 type AchievementData = {
-  id?: number; // 新規の時はIDが無いので「?」をつける
+  id?: number;
   title: string;
   hours: number | string;
 };
@@ -12,7 +12,7 @@ type Props = {
   isOpen: boolean;
   onClose: () => void;
   onSuccess: () => void;
-  initialData?: AchievementData | null; // ★追加：編集用の元データを受け取る
+  initialData?: AchievementData | null;
 };
 
 export const CreateAchievementModal: React.FC<Props> = ({ isOpen, onClose, onSuccess, initialData }) => {
@@ -20,14 +20,14 @@ export const CreateAchievementModal: React.FC<Props> = ({ isOpen, onClose, onSuc
   const [hours, setHours] = useState('');
   const [isSubmitting, setIsSubmitting] = useState(false);
 
-  // ★重要：モーダルが開くたびに、中身をセットする
+  // モーダルが開くたびに、中身をセットする
   useEffect(() => {
     if (initialData) {
       // 編集モードなら、元データを入力欄に入れる
       setTitle(initialData.title);
       setHours(String(initialData.hours));
     } else {
-      // 新規モードなら、空っぽにする
+      // 新規モードなら、空欄にする
       setTitle('');
       setHours('');
     }
@@ -39,7 +39,7 @@ export const CreateAchievementModal: React.FC<Props> = ({ isOpen, onClose, onSuc
     e.preventDefault();
     setIsSubmitting(true);
 
-    // ★編集モードか新規モードかで、宛先(URL)とメソッドを変える
+    // 編集モードか新規モードかで、宛先(URL)とメソッドを変える
     const isEditMode = !!initialData;
     const url = isEditMode ? '/api/achievements/update' : '/api/achievements/add';
     const method = isEditMode ? 'PUT' : 'POST';
@@ -59,14 +59,11 @@ export const CreateAchievementModal: React.FC<Props> = ({ isOpen, onClose, onSuc
       });
 
       if (res.ok) {
-        alert(isEditMode ? '更新しました！' : '登録しました！');
         onSuccess();
         onClose();
       } else {
-        alert('エラーが発生しました');
       }
     } catch (err) {
-      alert('通信エラーです');
     } finally {
       setIsSubmitting(false);
     }
@@ -78,12 +75,12 @@ export const CreateAchievementModal: React.FC<Props> = ({ isOpen, onClose, onSuc
         <h3 className="text-xl font-bold mb-4">
           {initialData ? '✏️ 実績の編集' : '✨ 実績の追加'}
         </h3>
-        
+
         <form onSubmit={handleSubmit} className="space-y-4">
           <div>
             <label className="block text-sm font-bold text-gray-700 mb-1">案件名</label>
-            <input 
-              type="text" 
+            <input
+              type="text"
               required
               className="w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-indigo-500 outline-none"
               value={title}
@@ -92,15 +89,15 @@ export const CreateAchievementModal: React.FC<Props> = ({ isOpen, onClose, onSuc
           </div>
           <div>
             <label className="block text-sm font-bold text-gray-700 mb-1">削減時間 (h)</label>
-            <input 
-              type="number" 
+            <input
+              type="number"
               required
               className="w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-indigo-500 outline-none"
               value={hours}
               onChange={(e) => setHours(e.target.value)}
             />
           </div>
-          
+
           <div className="flex justify-end gap-2 pt-4">
             <button
               type="button"
