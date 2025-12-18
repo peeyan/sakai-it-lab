@@ -1,6 +1,8 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { Button } from "../components/ui/Button";
+import { Toast } from '../components/ui/Toast';
+import { ConfirmDialog } from '../components/ui/ConfirmDialog';
 import { CreateAchievementModal } from "../components/admin/CreateAchievementModal";
 import { CreateNewsModal } from "../components/admin/CreateNewsModal";
 
@@ -28,6 +30,8 @@ export const Admin: React.FC = () => {
   const [showNewsModal, setShowNewsModal] = useState(false); // お知らせモーダル用
   const [editingItem, setEditingItem] = useState<Achievement | null>(null); // 実績編集中のデータ
   const [editingNews, setEditingNews] = useState<NewsItem | null>(null); // お知らせ編集中のデータ
+  const [toast, setToast] = useState({ show: false, message: '', type: 'success' as 'success' | 'error' }); // トースト通知用
+  const [deleteTarget, setDeleteTarget] = useState<{ id: number, type: 'achievement' | 'news' } | null>(null); // 削除確認通知用
   const navigate = useNavigate();
 
   // 1. ログインチェック
@@ -52,6 +56,11 @@ export const Admin: React.FC = () => {
         console.error(err);
         setLoading(false);
       });
+  };
+
+  // トーストを表示関数
+  const showToast = (message: string, type: 'success' | 'error' = 'success') => {
+    setToast({ show: true, message, type });
   };
 
   useEffect(() => {
@@ -82,39 +91,41 @@ export const Admin: React.FC = () => {
     setShowNewsModal(false);
   };
 
-  // ▼ 削除機能を追加
-  const handleDelete = async (id: number) => {
-    // うっかり削除防止の確認ダイアログ
-    if (!confirm("本当に削除してもよろしいですか？")) return;
+  // 実績削除ボタン
+  const confirmDeleteAchievement = (id: number) => {
+    setDeleteTarget({ id, type: 'achievement' }); // 削除対象をセットしてダイアログを開く
+  };
+
+  // お知らせ削除ボタン
+  const confirmDeleteNews = (id: number) => {
+    setDeleteTarget({ id, type: 'news' });
+  };
+
+  // 実際に削除を実行する関数
+  const executeDelete = async () => {
+    if (!deleteTarget) return;
+
+    const url = deleteTarget.type === 'achievement' 
+      ? '/api/achievements/delete' 
+      : '/api/news/delete';
 
     try {
-      const res = await fetch("/api/achievements/delete", {
-        method: "DELETE",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ id }),
+      const res = await fetch(url, {
+        method: 'DELETE',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ id: deleteTarget.id }),
       });
 
       if (res.ok) {
-        alert("削除しました");
-        fetchData(); // リストを更新
+        showToast('削除しました！', 'success');
+        fetchData(); // リスト更新
       } else {
-        alert("削除に失敗しました");
+        showToast('削除に失敗しました', 'error');
       }
     } catch (err) {
-      alert("通信エラーです");
-    }
-  };
-  const handleDeleteNews = async (id: number) => {
-    if (!confirm("お知らせを削除しますか？")) return;
-    try {
-      await fetch("/api/news/delete", {
-        method: "DELETE",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ id }),
-      });
-      fetchData(); // リスト更新
-    } catch (err) {
-      alert("通信エラー");
+      showToast('通信エラーが発生しました', 'error');
+    } finally {
+      setDeleteTarget(null); // ダイアログを閉じる
     }
   };
 
@@ -191,7 +202,7 @@ export const Admin: React.FC = () => {
                         </button>
 
                         <button
-                          onClick={() => handleDelete(item.id)}
+                          onClick={() => confirmDeleteAchievement(item.id)}
                           className="text-red-500 hover:text-red-700 hover:bg-red-50 px-3 py-1 rounded transition-colors text-sm font-bold"
                         >
                           削除
@@ -235,7 +246,7 @@ export const Admin: React.FC = () => {
                       編集
                     </button>
                     <button
-                      onClick={() => handleDeleteNews(item.id)}
+                      onClick={() => confirmDeleteNews(item.id)}
                       className="text-red-500 hover:text-red-700 text-sm font-bold"
                     >
                       削除
@@ -250,16 +261,37 @@ export const Admin: React.FC = () => {
         <CreateNewsModal
           isOpen={showNewsModal}
           onClose={handleCloseNewsModal}
-          onSuccess={fetchData}
+          onSuccess={() => {
+            fetchData();
+            showToast('お知らせを保存しました！');
+          }}
           initialData={editingNews}
         />
       </div>
 
       <CreateAchievementModal
         isOpen={showModal}
-        onSuccess={fetchData}
+        onSuccess={() => {
+          fetchData();
+          showToast('実績を保存しました！');
+        }}
         onClose={handleCloseModal}
         initialData={editingItem}
+      />
+
+      <Toast
+        isVisible={toast.show}
+        message={toast.message}
+        type={toast.type}
+        onClose={() => setToast({ ...toast, show: false })}
+      />
+
+      <ConfirmDialog
+        isOpen={!!deleteTarget}
+        title="削除の確認"
+        message="本当にこのデータを削除してもよろしいですか？この操作は取り消せません。"
+        onConfirm={executeDelete}
+        onCancel={() => setDeleteTarget(null)}
       />
     </div>
   );
