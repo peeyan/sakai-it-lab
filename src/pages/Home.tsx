@@ -6,6 +6,7 @@ import { Problems } from '../components/sections/Problems';
 import { Services } from '../components/sections/Services';
 import { Profile } from '../components/sections/Profile';
 import { Contact } from '../components/sections/Contact';
+import { NewsSection } from '../components/sections/NewsSection';
 
 export const Home: React.FC = () => {
   return (
@@ -15,6 +16,7 @@ export const Home: React.FC = () => {
         <Hero />
         <Problems />
         <Services />
+        <NewsSection />
         <Profile />
         <Contact />
       </main>
