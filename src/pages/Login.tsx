@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom'; // 画面遷移用
+import { useNavigate } from 'react-router-dom';
 import { Button } from '../components/ui/Button';
 
 export const Login: React.FC = () => {
@@ -20,7 +20,7 @@ export const Login: React.FC = () => {
       });
 
       if (res.ok) {
-        // 成功したら、ローカルストレージに「合言葉」を保存
+        // 成功したら、ローカルストレージに「アカウント情報」を保存
         localStorage.setItem('isAdmin', 'true');
         // 管理画面へジャンプ！
         navigate('/admin');
