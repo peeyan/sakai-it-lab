@@ -21,7 +21,7 @@ export const Hero: React.FC = () => {
               <span className="text-sm font-bold text-indigo-900">堺の企業を応援する、ITの便利屋さん</span>
             </div>
 
-            <h1 className="text-3xl sm:text-4xl md:text-5xl font-extrabold text-gray-900 tracking-tight mb-6 leading-tight">
+            <h1 className="text-2xl sm:text-4xl md:text-5xl font-extrabold text-gray-900 tracking-tight mb-6 leading-tight">
               「また残業かぁ…」そのため息、
               <span className="text-indigo-600 relative whitespace-normal sm:whitespace-nowrap block md:inline mt-2 md:mt-0">
                  私に預けてみませんか？
