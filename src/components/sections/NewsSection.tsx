@@ -46,9 +46,6 @@ export const NewsSection: React.FC = () => {
                 </li>
               ))}
             </ul>
-            <div className="text-right mt-4">
-               <a href="#" className="text-sm text-indigo-600 hover:underline">お知らせ一覧へ →</a>
-            </div>
           </div>
         )}
       </div>
