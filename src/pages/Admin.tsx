@@ -1,8 +1,8 @@
-import React, { useEffect, useState } from 'react';
-import { useNavigate } from 'react-router-dom';
-import { Button } from '../components/ui/Button';
-import { CreateAchievementModal } from '../components/admin/CreateAchievementModal';
-import { CreateNewsModal } from '../components/admin/CreateNewsModal';
+import React, { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
+import { Button } from "../components/ui/Button";
+import { CreateAchievementModal } from "../components/admin/CreateAchievementModal";
+import { CreateNewsModal } from "../components/admin/CreateNewsModal";
 
 // データ型を定義
 type Achievement = {
@@ -29,26 +29,26 @@ export const Admin: React.FC = () => {
 
   // 1. ログインチェック
   useEffect(() => {
-    const isAdmin = localStorage.getItem('isAdmin');
-    if (isAdmin !== 'true') navigate('/login');
+    const isAdmin = localStorage.getItem("isAdmin");
+    if (isAdmin !== "true") navigate("/login");
   }, [navigate]);
 
   // 2. データ取得
   const fetchData = () => {
     setLoading(true);
     Promise.all([
-      fetch('/api/achievements').then(res => res.json()),
-      fetch('/api/news').then(res => res.json())
+      fetch("/api/achievements").then((res) => res.json()),
+      fetch("/api/news").then((res) => res.json()),
     ])
-    .then(([achievementsData, newsData]) => {
-      setData(achievementsData); // 業務削減実績データ
-      setNewsList(newsData); // お知らせデータ
-      setLoading(false);
-    })
-    .catch((err) => {
-      console.error(err);
-      setLoading(false);
-    });
+      .then(([achievementsData, newsData]) => {
+        setData(achievementsData); // 業務削減実績データ
+        setNewsList(newsData); // お知らせデータ
+        setLoading(false);
+      })
+      .catch((err) => {
+        console.error(err);
+        setLoading(false);
+      });
   };
 
   useEffect(() => {
@@ -58,54 +58,62 @@ export const Admin: React.FC = () => {
   // ▼ 削除機能を追加
   const handleDelete = async (id: number) => {
     // うっかり削除防止の確認ダイアログ
-    if (!confirm('本当に削除してもよろしいですか？')) return;
+    if (!confirm("本当に削除してもよろしいですか？")) return;
 
     try {
-      const res = await fetch('/api/achievements/delete', {
-        method: 'DELETE',
-        headers: { 'Content-Type': 'application/json' },
+      const res = await fetch("/api/achievements/delete", {
+        method: "DELETE",
+        headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ id }),
       });
 
       if (res.ok) {
-        alert('削除しました');
+        alert("削除しました");
         fetchData(); // リストを更新
       } else {
-        alert('削除に失敗しました');
+        alert("削除に失敗しました");
       }
     } catch (err) {
-      alert('通信エラーです');
+      alert("通信エラーです");
     }
   };
   const handleDeleteNews = async (id: number) => {
-    if (!confirm('お知らせを削除しますか？')) return;
+    if (!confirm("お知らせを削除しますか？")) return;
     try {
-      await fetch('/api/news/delete', {
-        method: 'DELETE',
-        headers: { 'Content-Type': 'application/json' },
+      await fetch("/api/news/delete", {
+        method: "DELETE",
+        headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ id }),
       });
       fetchData(); // リスト更新
     } catch (err) {
-      alert('通信エラー');
+      alert("通信エラー");
     }
   };
 
   const handleLogout = () => {
-    localStorage.removeItem('isAdmin');
-    navigate('/login');
+    localStorage.removeItem("isAdmin");
+    navigate("/login");
   };
 
   return (
     <div className="min-h-screen bg-gray-100 p-8 relative">
       <div className="max-w-4xl mx-auto">
         <div className="flex justify-between items-center mb-8">
-          <h1 className="text-3xl font-bold text-gray-900">🔐 管理人ダッシュボード</h1>
+          <h1 className="text-3xl font-bold text-gray-900">
+            🔐 管理人ダッシュボード
+          </h1>
           <div className="flex gap-4 items-center">
-             <a href="/" className="text-indigo-600 hover:underline text-sm">サイトに戻る</a>
-             <Button variant="secondary" onClick={handleLogout} className="py-2 px-4 text-sm">
-               ログアウト
-             </Button>
+            <a href="/" className="text-indigo-600 hover:underline text-sm">
+              サイトに戻る
+            </a>
+            <Button
+              variant="secondary"
+              onClick={handleLogout}
+              className="py-2 px-4 text-sm"
+            >
+              ログアウト
+            </Button>
           </div>
         </div>
 
@@ -121,89 +129,89 @@ export const Admin: React.FC = () => {
           {loading ? (
             <p className="text-gray-500">読み込み中...</p>
           ) : (
-            <>
-              <div className="bg-white rounded-xl shadow-md p-6 mt-8">
-                <div className="flex justify-between items-center mb-4 border-b pb-2">
-                  <h2 className="text-xl font-bold">📢 お知らせ管理</h2>
-                  <Button variant="primary" onClick={() => setShowNewsModal(true)}>
-                    ＋ 投稿
-                  </Button>
-                </div>
-
-                <table className="w-full text-left">
-                  <thead>
-                    <tr className="bg-gray-50">
-                      <th className="p-3 font-bold text-gray-600">日付</th>
-                      <th className="p-3 font-bold text-gray-600">タイトル</th>
-                      <th className="p-3 font-bold text-gray-600">操作</th>
+            <div className="overflow-x-auto">
+              <table className="w-full text-left">
+                <thead>
+                  <tr className="bg-gray-50">
+                    <th className="p-3 font-bold text-gray-600">ID</th>
+                    <th className="p-3 font-bold text-gray-600">案件名</th>
+                    <th className="p-3 font-bold text-gray-600">削減時間</th>
+                    <th className="p-3 font-bold text-gray-600">登録日</th>
+                    <th className="p-3 font-bold text-gray-600">操作</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {data.map((item) => (
+                    <tr key={item.id} className="border-t hover:bg-gray-50">
+                      <td className="p-3 text-gray-500">#{item.id}</td>
+                      <td className="p-3 font-bold text-gray-800">
+                        {item.title}
+                      </td>
+                      <td className="p-3">
+                        <span className="bg-green-100 text-green-800 px-2 py-1 rounded-full text-sm font-bold">
+                          {item.hours} 時間
+                        </span>
+                      </td>
+                      <td className="p-3 text-gray-400 text-sm">
+                        {new Date(item.created_at).toLocaleDateString()}
+                      </td>
+                      <td className="p-3">
+                        <button
+                          onClick={() => handleDelete(item.id)}
+                          className="text-red-500 hover:text-red-700 hover:bg-red-50 px-3 py-1 rounded transition-colors text-sm font-bold"
+                        >
+                          削除
+                        </button>
+                      </td>
                     </tr>
-                  </thead>
-                  <tbody>
-                    {newsList.map((item) => (
-                      <tr key={item.id} className="border-t hover:bg-gray-50">
-                        <td className="p-3 text-gray-500">
-                          {new Date(item.published_date).toLocaleDateString()}
-                        </td>
-                        <td className="p-3 font-bold text-gray-800">{item.title}</td>
-                        <td className="p-3">
-                          <button
-                              onClick={() => handleDeleteNews(item.id)}
-                              className="text-red-500 hover:text-red-700 text-sm font-bold"
-                          >
-                            削除
-                          </button>
-                        </td>
-                      </tr>
-                    ))}
-                  </tbody>
-                </table>
-              </div>
-
-              <CreateNewsModal
-                isOpen={showNewsModal}
-                onClose={() => setShowNewsModal(false)}
-                onSuccess={fetchData}
-              />
-              <div className="overflow-x-auto">
-                <table className="w-full text-left">
-                  <thead>
-                    <tr className="bg-gray-50">
-                      <th className="p-3 font-bold text-gray-600">ID</th>
-                      <th className="p-3 font-bold text-gray-600">案件名</th>
-                      <th className="p-3 font-bold text-gray-600">削減時間</th>
-                      <th className="p-3 font-bold text-gray-600">登録日</th>
-                      <th className="p-3 font-bold text-gray-600">操作</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    {data.map((item) => (
-                      <tr key={item.id} className="border-t hover:bg-gray-50">
-                        <td className="p-3 text-gray-500">#{item.id}</td>
-                        <td className="p-3 font-bold text-gray-800">{item.title}</td>
-                        <td className="p-3">
-                          <span className="bg-green-100 text-green-800 px-2 py-1 rounded-full text-sm font-bold">
-                            {item.hours} 時間
-                          </span>
-                        </td>
-                        <td className="p-3 text-gray-400 text-sm">
-                          {new Date(item.created_at).toLocaleDateString()}
-                        </td>
-                        <td className="p-3">
-                          <button
-                            onClick={() => handleDelete(item.id)}
-                            className="text-red-500 hover:text-red-700 hover:bg-red-50 px-3 py-1 rounded transition-colors text-sm font-bold"
-                          >
-                            削除
-                          </button>
-                        </td>
-                      </tr>
-                    ))}
-                  </tbody>
-                </table>
-              </div>
-            </>
+                  ))}
+                </tbody>
+              </table>
+            </div>
           )}
         </div>
+        <div className="bg-white rounded-xl shadow-md p-6 mt-8">
+          <div className="flex justify-between items-center mb-4 border-b pb-2">
+            <h2 className="text-xl font-bold">📢 お知らせ管理</h2>
+            <Button variant="primary" onClick={() => setShowNewsModal(true)}>
+              ＋ 投稿
+            </Button>
+          </div>
+
+          <table className="w-full text-left">
+            <thead>
+              <tr className="bg-gray-50">
+                <th className="p-3 font-bold text-gray-600">日付</th>
+                <th className="p-3 font-bold text-gray-600">タイトル</th>
+                <th className="p-3 font-bold text-gray-600">操作</th>
+              </tr>
+            </thead>
+            <tbody>
+              {newsList.map((item) => (
+                <tr key={item.id} className="border-t hover:bg-gray-50">
+                  <td className="p-3 text-gray-500">
+                    {new Date(item.published_date).toLocaleDateString()}
+                  </td>
+                  <td className="p-3 font-bold text-gray-800">{item.title}</td>
+                  <td className="p-3">
+                    <button
+                      onClick={() => handleDeleteNews(item.id)}
+                      className="text-red-500 hover:text-red-700 text-sm font-bold"
+                    >
+                      削除
+                    </button>
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+
+        <CreateNewsModal
+          isOpen={showNewsModal}
+          onClose={() => setShowNewsModal(false)}
+          onSuccess={fetchData}
+        />
       </div>
 
       <CreateAchievementModal
@@ -211,7 +219,6 @@ export const Admin: React.FC = () => {
         onClose={() => setShowModal(false)}
         onSuccess={fetchData}
       />
-
     </div>
   );
 };
