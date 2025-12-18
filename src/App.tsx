@@ -1,24 +1,18 @@
-import { Header } from './components/layout/Header';
-import { Footer } from './components/layout/Footer';
-import { Hero } from './components/sections/Hero';
-import { Problems } from './components/sections/Problems';
-import { Services } from './components/sections/Services';
-import { Profile } from './components/sections/Profile';
-import { Contact } from './components/sections/Contact';
+import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import { Home } from './pages/Home';
+import { Admin } from './pages/Admin';
 
 function App() {
   return (
-    <div className="min-h-screen bg-gray-50 flex flex-col font-sans">
-      <Header />
-      <main className="flex-grow">
-        <Hero />
-        <Problems />
-        <Services />
-        <Profile />
-        <Contact />
-      </main>
-      <Footer />
-    </div>
+    <BrowserRouter>
+      <Routes>
+        {/* トップページ ( https://.../ ) */}
+        <Route path="/" element={<Home />} />
+
+        {/* 管理画面 ( https://.../admin ) */}
+        <Route path="/admin" element={<Admin />} />
+      </Routes>
+    </BrowserRouter>
   );
 }
 
