@@ -1,4 +1,4 @@
-import { getDbConnection } from '../_db.js';
+import { getDbConnection } from './_db.js';
 
 export default async function handler(req, res) {
   const connection = await getDbConnection();
