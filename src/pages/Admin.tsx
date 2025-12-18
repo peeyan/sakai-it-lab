@@ -1,7 +1,8 @@
 import React, { useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { Button } from '../components/ui/Button';
 
-// データの形（型）を定義
+// データ型を定義
 type Achievement = {
   id: number;
   title: string;
@@ -12,6 +13,17 @@ type Achievement = {
 export const Admin: React.FC = () => {
   const [data, setData] = useState<Achievement[]>([]);
   const [loading, setLoading] = useState(true);
+  const navigate = useNavigate();
+
+  // ▼▼▼ 1. ログインチェック ▼▼▼
+  useEffect(() => {
+    // "アカウント情報" を持っていない人は、ログイン画面に強制送還！
+    const isAdmin = localStorage.getItem('isAdmin');
+    if (isAdmin !== 'true') {
+      navigate('/login');
+    }
+  }, [navigate]);
+  // ▲▲▲ ここまで ▲▲▲
 
   // 画面が開かれた時にAPIからデータを取得する
   useEffect(() => {
@@ -27,17 +39,32 @@ export const Admin: React.FC = () => {
       });
   }, []);
 
+  // ▼▼▼ 2. ログアウト処理 ▼▼▼
+  const handleLogout = () => {
+    // アカウント情報を捨てる
+    localStorage.removeItem('isAdmin');
+    // ログイン画面に戻る
+    navigate('/login');
+  };
+
   return (
     <div className="min-h-screen bg-gray-100 p-8">
       <div className="max-w-4xl mx-auto">
         <div className="flex justify-between items-center mb-8">
           <h1 className="text-3xl font-bold text-gray-900">🔐 管理人ダッシュボード</h1>
-          <a href="/" className="text-indigo-600 hover:underline">← サイトに戻る</a>
+
+          <div className="flex gap-4 items-center">
+             <a href="/" className="text-indigo-600 hover:underline text-sm">サイトに戻る</a>
+             {/* ログアウトボタン */}
+             <Button variant="secondary" onClick={handleLogout} className="py-2 px-4 text-sm">
+               ログアウト
+             </Button>
+          </div>
         </div>
 
         <div className="bg-white rounded-xl shadow-md p-6">
           <h2 className="text-xl font-bold mb-4 border-b pb-2">📊 業務削減の実績リスト</h2>
-          
+
           {loading ? (
             <p className="text-gray-500">読み込み中...</p>
           ) : (
