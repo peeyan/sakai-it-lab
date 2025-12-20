@@ -20,8 +20,6 @@ export const Contact: React.FC = () => {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    setIsSubmitting(true);
-
     try {
       const res = await fetch('/api/contact.js', {
         method: 'POST',
@@ -32,13 +30,12 @@ export const Contact: React.FC = () => {
       if (res.ok) {
         // フォームを空にする
         setFormData({ name: '', company: '', email: '', message: '' });
+        setIsSubmitting(true);
       } else {
         setToast({ show: true, message: '送信に失敗しました。', type: 'error' });
       }
     } catch (err) {
       setToast({ show: true, message: '通信エラーが発生しました。', type: 'error' });
-    } finally {
-      setIsSubmitting(false);
     }
   };
 
@@ -55,7 +52,10 @@ export const Contact: React.FC = () => {
               内容を確認次第、ご連絡させていただきます。
             </p>
             <div className="mt-8">
-              <Button variant="secondary" onClick={() => window.location.reload()}>
+              <Button
+                variant="secondary"
+                onClick={() =>window.location.reload()}
+              >
                 元の画面に戻る
               </Button>
             </div>
