@@ -1,4 +1,5 @@
 import { getDbConnection } from '../_db.js';
+import bcrypt from 'bcryptjs';
 
 export default async function handler(req, res) {
   if (req.method !== 'POST') return res.status(405).json({ error: 'Method not allowed' });
@@ -14,7 +15,16 @@ export default async function handler(req, res) {
 
     await connection.end();
 
-    if (rows.length === 0 || rows[0].password !== password) {
+    // ユーザーがいない場合
+    if (rows.length === 0) {
+      return res.status(401).json({ error: 'IDまたはパスワードが違います' });
+    }
+    const user = rows[0];
+    // パスワードの照合
+    // bcrypt.compare(入力された生パスワード, DBにある暗号化パスワード)
+    const isMatch = await bcrypt.compare(password, user.password);
+
+    if (!isMatch) {
       return res.status(401).json({ error: 'IDまたはパスワードが違います' });
     }
 
