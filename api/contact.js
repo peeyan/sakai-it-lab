@@ -1,6 +1,8 @@
 import nodemailer from 'nodemailer';
 
 export default async function handler(req, res) {
+  console.log('★APIにアクセスがありました！');
+  console.log('メソッド:', req.method);
   if (req.method !== 'POST') {
     return res.status(405).json({ error: 'Method not allowed' });
   }
@@ -12,12 +14,12 @@ export default async function handler(req, res) {
   }
 
   try {
-    // 1. メールの運び屋（トランスポーター）を設定
+    // 1. トランスポーターを設定
     const transporter = nodemailer.createTransport({
       service: 'gmail',
       auth: {
-        user: process.env.GMAIL_USER, // 送信元Gmail
-        pass: process.env.GMAIL_PASS, // アプリパスワード
+        user: process.env.GMAIL_USER,
+        pass: process.env.GMAIL_PASS,
       },
     });
 
