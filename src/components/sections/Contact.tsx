@@ -1,16 +1,17 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { Button } from '../ui/Button';
-import { Toast } from '../ui/Toast'; // さっき作ったToastを再利用！
+import { Mail, MessageCircle, CheckCircle } from 'lucide-react';
+import { Toast } from '../ui/Toast';
 
 export const Contact: React.FC = () => {
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [toast, setToast] = useState({ show: false, message: '', type: 'success' as 'success' | 'error' });
   const [formData, setFormData] = useState({
     name: '',
     company: '',
     email: '',
     message: ''
   });
-  const [isSubmitting, setIsSubmitting] = useState(false);
-  const [toast, setToast] = useState({ show: false, message: '', type: 'success' as 'success' | 'error' });
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     const { name, value } = e.target;
@@ -29,7 +30,6 @@ export const Contact: React.FC = () => {
       });
 
       if (res.ok) {
-        setToast({ show: true, message: 'お問い合わせを送信しました！', type: 'success' });
         // フォームを空にする
         setFormData({ name: '', company: '', email: '', message: '' });
       } else {
@@ -42,18 +42,50 @@ export const Contact: React.FC = () => {
     }
   };
 
+  // 送信成功時の表示画面
+  if (isSubmitting) {
+    return (
+      <section id="contact" className="py-20 bg-indigo-600 text-white">
+        <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+          <div className="bg-white/10 backdrop-blur-md rounded-3xl p-12 border border-white/20">
+            <CheckCircle className="w-16 h-16 text-green-400 mx-auto mb-6" />
+            <h2 className="text-3xl font-bold mb-4">お問い合わせありがとうございます！</h2>
+            <p className="text-xl text-indigo-100">
+              メッセージは無事に届きました。<br />
+              内容を確認次第、ご連絡させていただきます。
+            </p>
+            <div className="mt-8">
+              <Button variant="secondary" onClick={() => window.location.reload()}>
+                元の画面に戻る
+              </Button>
+            </div>
+          </div>
+        </div>
+      </section>
+    );
+  }
+
   return (
-    <section id="contact" className="py-20 bg-white">
-      <div className="max-w-3xl mx-auto px-4">
-        <div className="text-center mb-12">
-          <h2 className="text-3xl font-bold text-gray-900 mb-4">お問い合わせ</h2>
-          <p className="text-gray-600">
-            業務効率化のご相談、お見積もりなど、お気軽にご連絡ください。
+    <section id="contact" className="py-20 bg-indigo-600 text-white">
+      <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="text-center mb-10">
+          <div className="inline-flex items-center justify-center w-12 h-12 bg-indigo-500 rounded-full mb-4 ring-4 ring-indigo-500/30">
+            <MessageCircle className="w-6 h-6 text-white" />
+          </div>
+
+          <p className="text-indigo-100 text-base sm:text-lg">
+            準備はいりません。<br/>
+            「これ、なんとかなる？」だけでOKです。
+          </p>
+
+          <p className="text-indigo-100 text-lg">
+            正式な依頼の前に、まずは相性確認のおしゃべりから始めませんか？<br />
+            Zoom、または堺市内なら車でお伺いも可能です🚲
           </p>
         </div>
 
-        <form onSubmit={handleSubmit} className="bg-gray-50 p-8 rounded-xl shadow-sm border border-gray-100">
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
+        <form onSubmit={handleSubmit} className="bg-white rounded-2xl p-6 md:p-10 shadow-2xl text-gray-900 space-y-6">
+          <div className="grid md:grid-cols-2 gap-6">
             <div>
               <label className="block text-sm font-bold text-gray-700 mb-2">お名前 <span className="text-red-500">*</span></label>
               <input
@@ -94,16 +126,21 @@ export const Contact: React.FC = () => {
             />
           </div>
 
-          <div className="text-center">
-            <Button
-              type="submit"
-              variant="primary"
-              className="w-full md:w-auto px-12 py-4 text-lg"
-              disabled={isSubmitting}
-            >
-              {isSubmitting ? '送信中...' : '送信する'}
-            </Button>
-          </div>
+          <Button
+            type="submit"
+            variant="accent"
+            // py-3 sm:py-4 : スマホでは縦幅を少し狭く、PCでは広く
+            // text-base sm:text-lg : スマホでは文字サイズを標準に、PCでは大きく
+            className="w-full py-3 sm:py-4 text-base sm:text-lg font-bold shadow-lg hover:shadow-xl transform transition hover:-translate-y-1"
+            disabled={isSubmitting}
+          >
+            <Mail className="w-5 h-5 mr-2" />
+            {isSubmitting ? '送信中...' : '送信する'}
+          </Button>
+
+          <p className="text-center text-xs text-gray-400 mt-4">
+            ※ 売り込みはしませんのでご安心ください。
+          </p>
         </form>
 
         <Toast
@@ -112,6 +149,7 @@ export const Contact: React.FC = () => {
           type={toast.type}
           onClose={() => setToast({ ...toast, show: false })}
         />
+
       </div>
     </section>
   );
