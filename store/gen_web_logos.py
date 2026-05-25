@@ -164,22 +164,19 @@ def make_circle(size=1000):
     return img
 
 # ── 横長ロゴ（透明背景）────────────────────────────────────────────────────
-def make_horizontal():
-    W = 640;  H = 220
-    # 内部は正方形キャンバスで計算してから切り抜く
+def make_horizontal(pad=12):
+    """横長ロゴ（透明背景・余白最小）"""
     S   = 1000
     img = Image.new("RGBA", (S, S), (0,0,0,0))
     L   = _layout(S, 100, 56, 36, 20, 34, 20)
     _draw_all(img, L)
 
-    # コンテンツ領域をトリミング（余白16px）
-    PAD = 60
-    x0  = L['dx1'] - PAD
-    x1  = L['jx2'] + PAD
-    y0  = L['y1_r1'] - PAD
-    y1  = L['y2_r2'] + PAD
-    cropped = img.crop((x0, y0, x1, y1))
-    return cropped.resize((W, H), Image.LANCZOS)
+    # ドロップシャドウ考慮で少しだけ余白を取る
+    x0 = L['dx1'] - pad
+    x1 = L['jx2'] + pad + 10   # shadow offset 分
+    y0 = L['y1_r1'] - pad
+    y1 = L['y2_r2'] + pad + 10
+    return img.crop((x0, y0, x1, y1))
 
 # ── 生成・保存 ──────────────────────────────────────────────────────────────
 if __name__ == "__main__":
@@ -200,7 +197,9 @@ if __name__ == "__main__":
     base.resize((64, 64), Image.LANCZOS).save(fav_path)
     print(f"✅  favicon.png (64×64px) → public/")
 
-    # 横長ロゴ
-    h_path = os.path.join(IMG_DIR, "logo_horizontal.png")
-    make_horizontal().save(h_path)
-    print(f"✅  logo_horizontal.png (640×220px) → store/img/")
+    # 横長ロゴ（store/img 保存 + public/ にも配置）
+    horiz = make_horizontal()
+    w, h  = horiz.size
+    horiz.save(os.path.join(IMG_DIR, "logo_horizontal.png"))
+    horiz.save(os.path.join(PUB_DIR, "logo.png"))
+    print(f"✅  logo_horizontal.png ({w}×{h}px) → store/img/ & public/")

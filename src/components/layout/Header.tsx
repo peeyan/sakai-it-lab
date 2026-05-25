@@ -17,10 +17,7 @@ export const Header: React.FC = () => {
         <div className="flex justify-between items-center h-20">
           {/* Logo */}
           <div className="flex-shrink-0 flex items-center gap-2 cursor-pointer" onClick={() => window.scrollTo(0, 0)}>
-            <img src="/logo.png" alt="デコボコカンパニー" className="h-12 w-12 rounded-full" />
-            <span className="font-bold text-xl tracking-tight text-gray-900">
-              デコボコカンパニー
-            </span>
+            <img src="/logo.png" alt="デコボコカンパニー" className="h-14 w-auto" />
           </div>
 
           {/* Desktop Nav */}
