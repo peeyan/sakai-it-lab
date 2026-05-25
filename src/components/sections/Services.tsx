@@ -24,9 +24,13 @@ export const Services: React.FC = () => {
                    人気No.1プラン
                  </div>
                  {/* スマホサイズ調整済み */}
-                 <h3 className="text-2xl sm:text-3xl font-bold text-gray-900 mb-4">
+                 <h3 className="text-2xl sm:text-3xl font-bold text-gray-900 mb-2">
                    IT業務の「かかりつけ医」プラン <span className="block sm:inline text-base font-normal text-gray-500 sm:ml-2 mt-1 sm:mt-0">(月額サポート)</span>
                  </h3>
+                 <div className="flex items-baseline gap-2 mb-4">
+                   <span className="text-3xl font-extrabold text-indigo-600">¥29,800</span>
+                   <span className="text-gray-500 text-sm">/ 月（税込）〜</span>
+                 </div>
                  <p className="text-gray-600 text-base sm:text-lg leading-relaxed mb-6">
                    「ベンダーに頼むほどでもないけど、自分では直せない」<br/>
                    そんな日々の小さなITトラブルを、チャット一本で解決します。<br/>
