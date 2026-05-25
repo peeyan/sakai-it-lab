@@ -14,7 +14,7 @@ const NEWS: NewsItem[] = [
     title: 'X（旧Twitter）にて情報発信を開始しました。ぜひフォローください！',
     tag: 'SNS',
     tagColor: 'bg-sky-100 text-sky-700',
-    href: 'https://x.com/DekobokoHQ',
+    href: 'https://x.com/yorozuya_pe',
   },
   {
     date: '2026-05-25',
