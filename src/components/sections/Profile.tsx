@@ -49,10 +49,10 @@ export const Profile: React.FC = () => {
 
             <div className="flex items-center justify-center md:justify-start gap-2 text-gray-500 font-medium mb-4 text-sm">
               <MapPin className="w-4 h-4 text-indigo-500" />
-              <span>大阪府堺市北区在住 / エンジニア</span>
+              <span>大阪在住 / 現役エンジニア</span>
             </div>
             <p className="text-gray-700 leading-relaxed">
-              はじめまして。現役エンジニアとして開発を行う傍ら、地元・堺の個人事業主様の「困った」を解決しています。<br /><br />
+              はじめまして。現役エンジニアとして開発を行う傍ら、全国の中小企業・個人事業主様の「困った」を解決しています。<br /><br />
               私が目指しているのは、外部の業者ではなく<span className="font-bold text-indigo-600">「いつでも声をかけられる身近な助っ人」</span>です。
               「こんなこと聞いてもいいのかな？」と遠慮する必要はありません。
               仕様書も準備もいりません。現場の愚痴をこぼす感覚で、まずはお話ししましょう。

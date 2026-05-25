@@ -73,6 +73,10 @@ export const Contact: React.FC = () => {
             <MessageCircle className="w-6 h-6 text-white" />
           </div>
 
+          <h2 className="text-3xl sm:text-4xl font-extrabold text-white mb-4">
+            まずは気軽にご相談ください
+          </h2>
+
           <p className="text-indigo-100 text-base sm:text-lg">
             準備はいりません。<br/>
             「これ、なんとかなる？」だけでOKです。
@@ -80,7 +84,7 @@ export const Contact: React.FC = () => {
 
           <p className="text-indigo-100 text-lg">
             正式な依頼の前に、まずは相性確認のおしゃべりから始めませんか？<br />
-            Zoom、または堺市内なら車でお伺いも可能です🚲
+            Zoom での全国オンライン対応も可能です🖥️
           </p>
         </div>
 

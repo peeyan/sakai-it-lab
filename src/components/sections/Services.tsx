@@ -1,6 +1,6 @@
 import React from 'react';
 import { SectionTitle } from '../ui/SectionTitle';
-import { Sheet, Cloud, Server, Check, Zap, MessageSquare, ArrowRight } from 'lucide-react'; // Cloudを追加
+import { Sheet, Cloud, Server, Check, Zap, MessageSquare, ArrowRight, BrainCircuit } from 'lucide-react';
 import { Button } from '../ui/Button';
 
 export const Services: React.FC = () => {
@@ -143,6 +143,54 @@ export const Services: React.FC = () => {
           </div>
 
         </div>
+
+        {/* AI活用支援 */}
+        <div className="mt-12">
+          <div className="bg-gradient-to-br from-violet-50 to-indigo-50 rounded-3xl p-8 md:p-12 border border-violet-100 shadow-sm">
+            <div className="grid lg:grid-cols-2 gap-10 items-center">
+              <div>
+                <div className="inline-flex items-center gap-2 bg-violet-100 text-violet-800 text-sm font-bold px-3 py-1 rounded-full mb-4">
+                  <BrainCircuit className="w-4 h-4" />
+                  新メニュー
+                </div>
+                <h3 className="text-2xl sm:text-3xl font-bold text-gray-900 mb-4">
+                  AI活用支援・業務自動化
+                </h3>
+                <p className="text-gray-600 text-base sm:text-lg leading-relaxed mb-6">
+                  ChatGPT・Claude・Gemini などのAIツールを業務に取り入れたいけど、何から始めればいいかわからない。<br />
+                  そんな方へ、現役エンジニア目線で「今すぐ使える」AI活用法をご提案します。
+                </p>
+                <a href="#contact">
+                  <Button variant="primary" className="w-full sm:w-auto shadow-indigo-200">
+                    AI活用について相談する
+                    <ArrowRight className="w-4 h-4 ml-2" />
+                  </Button>
+                </a>
+              </div>
+              <div className="bg-white rounded-2xl p-6 border border-violet-100 shadow-sm">
+                <h4 className="font-bold text-gray-900 mb-4 flex items-center">
+                  <BrainCircuit className="w-5 h-5 text-violet-500 mr-2" />
+                  こんなお悩みに対応します
+                </h4>
+                <ul className="space-y-3">
+                  <li className="flex items-start text-gray-700">
+                    <Check className="w-5 h-5 text-violet-500 mr-3 flex-shrink-0 mt-0.5" />
+                    <span><strong>AIプロンプト設計・最適化</strong><br /><span className="text-sm text-gray-500">業務に合ったプロンプトを一緒に作り、再利用できる形に整備します</span></span>
+                  </li>
+                  <li className="flex items-start text-gray-700">
+                    <Check className="w-5 h-5 text-violet-500 mr-3 flex-shrink-0 mt-0.5" />
+                    <span><strong>AI × Excel / Kintone 連携</strong><br /><span className="text-sm text-gray-500">既存ツールにAIを組み合わせて、さらに業務を効率化します</span></span>
+                  </li>
+                  <li className="flex items-start text-gray-700">
+                    <Check className="w-5 h-5 text-violet-500 mr-3 flex-shrink-0 mt-0.5" />
+                    <span><strong>社内AI活用研修・勉強会</strong><br /><span className="text-sm text-gray-500">従業員の方がAIを使いこなせるよう、わかりやすくサポートします</span></span>
+                  </li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
+
       </div>
     </section>
   );

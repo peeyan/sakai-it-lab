@@ -21,7 +21,7 @@ export const Header: React.FC = () => {
               <Code2 className="h-6 w-6 text-white" />
             </div>
             <span className="font-bold text-xl tracking-tight text-gray-900">
-              堺・IT業務改善ラボ
+              デコボコカンパニー
             </span>
           </div>
 

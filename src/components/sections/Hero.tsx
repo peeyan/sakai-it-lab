@@ -18,7 +18,7 @@ export const Hero: React.FC = () => {
           <div className="text-center lg:text-left order-2 lg:order-1">
             <div className="inline-flex items-center gap-2 bg-white border border-indigo-100 shadow-sm px-4 py-1.5 rounded-full mb-8">
               <HandHeart className="w-4 h-4 text-orange-500" />
-              <span className="text-sm font-bold text-indigo-900">堺の企業を応援する、ITの便利屋さん</span>
+              <span className="text-sm font-bold text-indigo-900">全国の中小企業を応援する、ITの便利屋さん</span>
             </div>
 
             <h2 className="text-2xl sm:text-3xl md:text-5xl font-extrabold text-gray-900 tracking-tight mb-6 leading-tight">
